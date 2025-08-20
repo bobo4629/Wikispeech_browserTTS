@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira",
+			"Eduardoaddad",
+			"Re demz",
+			"TheEduGobi"
+		]
+	},
+	"wikispeech": "Wikispeech",
+	"wikispeech-desc": "Uma ferramenta de conversão de texto em fala para tornar os projetos da Wikimedia mais acessíveis para pessoas que, por diferentes razões, têm dificuldades em ler.",
+	"prefs-wikispeech": "Wikispeech",
+	"prefs-wikispeech-voice": "Voz",
+	"prefs-wikispeech-speech-rate": "Taxa de fala",
+	"prefs-wikispeech-speech-rate-percent": "Taxa de fala (em porcentagem)",
+	"prefs-wikispeech-enable": "Ativar Wikispeech",
+	"prefs-wikispeech-show-player": "Sempre mostrar reprodutor",
+	"right-wikispeech-listen": "Ouça a página",
+	"right-wikispeech-read-lexicon": "Ler o léxico do Wikispeech",
+	"right-wikispeech-edit-lexicon": "Editar o léxico do Wikispeech",
+	"action-wikispeech-listen": "ouvir a página",
+	"action-wikispeech-read-lexicon": "ler o léxico do Wikispeech",
+	"action-wikispeech-edit-lexicon": "editar o léxico do Wikispeech",
+	"wikispeech-listen": "Ouvir",
+	"wikispeech-dont-listen": "Não escutar",
+	"wikispeech-error-loading-audio-title": "Não foi possível carregar áudio",
+	"wikispeech-error-loading-audio-message": "Isso pode ser causado por conexão má Internet ou um erro no servidor. Você quer repetir ou parar a reprodução?",
+	"wikispeech-error-generate-preview-title": "Não foi possível gerar a antevisão",
+	"wikispeech-retry": "Tentar novamente",
+	"wikispeech-stop": "Parar",
+	"editlexicon": "Editar léxico",
+	"wikispeech-language": "Idioma",
+	"wikispeech-word": "Palavra",
+	"wikispeech-transcription": "Transcrição",
+	"wikispeech-item-id": "Id",
+	"wikispeech-preview": "Pré-visualizar",
+	"wikispeech-lexicon-add-entry-success": "Entrada adicionada ao léxico.",
+	"wikispeech-lexicon-new": "Novo",
+	"wikispeech-lexicon-edit-entry-success": "Entrada editada.",
+	"wikispeech-lexicon-copyrightnote": "Ao salvar as alterações, você concorda em liberar sua contribuição de acordo com o [https://creativecommons.org/publicdomain/zero/1.0/ CC0]."
+}

@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joao Xavier"
+		]
+	},
+	"apihelp-wikispeech-segment-param-page": "Titulo di la pagino por traktar.",
+	"apihelp-wikispeech-segment-param-segmentbreakingtags": "HTML tags that should breaks segments. Be aware that wikispeech-listen uses default configuration for segmenting and might not be compatible with segments produced with an ad hoc setting of this parameter.",
+	"apihelp-wikispeech-listen-param-lang": "Linguala kodexo."
+}

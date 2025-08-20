@@ -1,0 +1,618 @@
+{
+	"name": "Wikispeech",
+	"version": "0.1.12",
+	"author": [
+		"Sebastian Berlin",
+		"André Costa",
+		"Igor Leturia",
+		"Karl Wettin",
+		"Viktoria Hillerud"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:Wikispeech",
+	"namemsg": "wikispeech",
+	"descriptionmsg": "wikispeech-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "other",
+	"manifest_version": 2,
+	"MessagesDirs": {
+		"Wikispeech": [
+			"i18n",
+			"i18n/api"
+		]
+	},
+	"requires": {
+		"MediaWiki": ">= 1.43"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Wikispeech\\": "includes/"
+	},
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Wikispeech\\Tests\\": "tests/phpunit/",
+		"MediaWiki\\Wikispeech\\Tests\\Unit\\": "tests/phpunit/unit/"
+	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
+	"ResourceModules": {
+		"ext.wikispeech.loader": {
+			"scripts": [
+				"ext.wikispeech.loader.js"
+			]
+		},
+		"ext.wikispeech": {
+			"scripts": [
+				"ext.wikispeech.highlighter.js",
+				"ext.wikispeech.main.js",
+				"ext.wikispeech.player.js",
+				"ext.wikispeech.selectionPlayer.js",
+				"ext.wikispeech.storage.js",
+				"ext.wikispeech.ui.js",
+				"ext.wikispeech.util.js",
+				"ext.wikispeech.browserTTS.js"
+			],
+			"styles": [
+				"ext.wikispeech.css"
+			],
+			"messages": [
+				"wikispeech-error-loading-audio-title",
+				"wikispeech-error-loading-audio-message",
+				"wikispeech-retry",
+				"wikispeech-stop",
+				"wikispeech-listen",
+				"wikispeech-dont-listen",
+				"wikispeech-skip-back",
+				"wikispeech-previous",
+				"wikispeech-play",
+				"wikispeech-pause",
+				"wikispeech-next",
+				"wikispeech-skip-ahead",
+				"wikispeech-help",
+				"wikispeech-feedback",
+				"wikispeech-edit-lexicon-btn",
+				"wikispeech-settings",
+				"wikispeech-voice",
+				"wikispeech-voice-settings",
+				"wikispeech-voice-settings-description",
+				"wikispeech-voice-changed",
+				"wikispeech-settings-changed",
+				"wikispeech-cancel",
+				"prefs-wikispeech-speech-rate",
+				"saveprefs",
+				"wikispeech-browser-tts-not-supported-title",
+				"wikispeech-browser-tts-not-supported-message",
+				"wikispeech-browser-tts-no-voices-title",
+				"wikispeech-browser-tts-no-voices-message"
+			],
+			"dependencies": [
+				"mediawiki.util",
+				"mediawiki.user",
+				"oojs-ui",
+				"oojs-ui-core",
+				"oojs-ui-toolbars",
+				"oojs-ui.styles.icons-media",
+				"oojs-ui.styles.icons-movement",
+				"oojs-ui.styles.icons-interactions",
+				"oojs-ui.styles.icons-editing-core"
+			]
+		},
+		"ext.wikispeech.specialEditLexicon": {
+			"packageFiles": [
+				"ext.wikispeech.specialEditLexicon.js",
+				"ext.wikispeech.transcriptionPreviewer.js",
+				"ext.wikispeech.util.js"
+			],
+			"messages": [
+				"wikispeech-error-generate-preview-title"
+			],
+			"dependencies": [
+				"mediawiki.api",
+				"oojs-ui",
+				"oojs-ui-core"
+			]
+		},
+		"ext.wikispeech.gadget": {
+			"packageFiles": [
+				"ext.wikispeech.gadget.js",
+				"ext.wikispeech.userOptionsDialog.js",
+				"ext.wikispeech.util.js",
+				{
+					"name": "config.json",
+					"config": [
+						"WikispeechKeyboardShortcuts",
+						"WikispeechContentSelector",
+						"WikispeechSkipBackRewindsThreshold",
+						"WikispeechHelpPage",
+						"WikispeechFeedbackPage",
+						"WikispeechSpeechoidUrl",
+						"WikispeechNamespaces",
+						"WikispeechVoices",
+						"WikispeechAllowConsumerEdits"
+					]
+				},
+				{
+					"name": "default-user-options.json",
+					"callback": "MediaWiki\\Wikispeech\\DefaultUserOptions::getDefaultUserOptions"
+				}
+			],
+			"messages": [
+				"preferences",
+				"saveprefs",
+				"default",
+				"wikispeech-language",
+				"prefs-wikispeech-speech-rate-percent",
+				"prefs-wikispeech-voice",
+				"wikispeech-notice-prefs-apply-on-next-page-load"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "Wikispeech/modules"
+	},
+	"SpecialPages": {
+		"EditLexicon": {
+			"class": "MediaWiki\\Wikispeech\\Specials\\SpecialEditLexicon",
+			"services": [
+				"LanguageNameUtils",
+				"Wikispeech.ConfiguredLexiconStorage",
+				"Wikispeech.SpeechoidConnector"
+			]
+		}
+	},
+	"ExtensionMessagesFiles": {
+		"WikispeechAlias": "Wikispeech.alias.php"
+	},
+	"QUnitTestModule": {
+		"localBasePath": ".",
+		"remoteExtPath": "Wikispeech",
+		"packageFiles": [
+			"tests/qunit/index.js",
+			"tests/qunit/ext.wikispeech.test.util.js",
+			"tests/qunit/ext.wikispeech.highlighter.test.js",
+			"tests/qunit/ext.wikispeech.player.test.js",
+			"tests/qunit/ext.wikispeech.selectionPlayer.test.js",
+			"tests/qunit/ext.wikispeech.storage.test.js",
+			"tests/qunit/ext.wikispeech.transcriptionPreviewer.test.js",
+			"modules/ext.wikispeech.transcriptionPreviewer.js",
+			"modules/ext.wikispeech.util.js",
+			"tests/qunit/ext.wikispeech.ui.test.js"
+		],
+		"dependencies": [
+			"ext.wikispeech"
+		]
+	},
+	"HookHandlers": {
+		"ApiHooks": {
+			"class": "MediaWiki\\Wikispeech\\Hooks\\ApiHooks",
+			"services": [
+				"ConfigFactory",
+				"PermissionManager",
+				"HttpRequestFactory"
+			]
+		},
+		"PlayerHooks": {
+			"class": "MediaWiki\\Wikispeech\\Hooks\\PlayerHooks",
+			"services": [
+				"ConfigFactory",
+				"UserOptionsLookup",
+				"MainWANObjectCache",
+				"LanguageFactory",
+				"PermissionManager",
+				"HttpRequestFactory"
+			]
+		},
+		"DatabaseHooks": {
+			"class": "MediaWiki\\Wikispeech\\Hooks\\DatabaseHooks"
+		},
+		"LexiconHooks": {
+			"class": "MediaWiki\\Wikispeech\\Hooks\\LexiconArticleEditHooks"
+		}
+	},
+	"Hooks": {
+		"LoadExtensionSchemaUpdates": "DatabaseHooks",
+		"ApiBeforeMain": "ApiHooks",
+		"BeforePageDisplay": "PlayerHooks",
+		"ResourceLoaderGetConfigVars": "PlayerHooks",
+		"GetPreferences": "PlayerHooks",
+		"ApiCheckCanExecute": "ApiHooks",
+		"SkinTemplateNavigation::Universal": [
+			"PlayerHooks",
+			"LexiconHooks"
+		],
+		"CustomEditor": "LexiconHooks"
+	},
+	"ConfigRegistry": {
+		"wikispeech": "GlobalVarConfig::newInstance"
+	},
+	"JobClasses": {
+		"flushUtterancesByExpirationDateOnFile": "\\MediaWiki\\Wikispeech\\Utterance\\FlushUtterancesByExpirationDateOnFileJob",
+		"flushUtterancesFromStoreByExpiration": "\\MediaWiki\\Wikispeech\\Utterance\\FlushUtterancesFromStoreByExpirationJob",
+		"flushUtterancesFromStoreByLanguageAndVoice": "\\MediaWiki\\Wikispeech\\Utterance\\FlushUtterancesFromStoreByLanguageAndVoiceJob",
+		"flushUtterancesFromStoreByPageId": "\\MediaWiki\\Wikispeech\\Utterance\\FlushUtterancesFromStoreByPageIdJob"
+	},
+	"config": {
+		"WikispeechSpeechoidUrl": {
+			"description": "The URL to use for the Speechoid service. ",
+			"value": ""
+		},
+		"WikispeechSymbolSetUrl": {
+			"description": [
+				"The URL to use for the Symbol set service. ",
+				"Defaults to WikispeechSpeechoidUrl at port 8771 in case of falsy value."
+			],
+			"value": ""
+		},
+		"WikispeechSpeechoidHaproxyQueueUrl": {
+			"description": [
+				"The URL to use for the Speechoid service queue. ",
+				"Defaults to WikispeechSpeechoidUrl at port 10001 in case of falsy value."
+			],
+			"value": ""
+		},
+		"WikispeechSpeechoidHaproxyStatsUrl": {
+			"description": [
+				"The URL to use for monitoring the Speechoid service queue. ",
+				"This should be the base URL to the server, the code will append ",
+				"the path e.g. /stats;csv;norefresh",
+				"Defaults to WikispeechSpeechoidUrl at port 10002 in case of falsy value."
+			],
+			"value": ""
+		},
+		"WikispeechSpeechoidHaproxyFrontendPxName": {
+			"description": "Speechoid HAProxy frontend proxy name.",
+			"value": "frontend_1"
+		},
+		"WikispeechSpeechoidHaproxyFrontendSvName": {
+			"description": "Speechoid HAProxy frontend service name.",
+			"value": "FRONTEND"
+		},
+		"WikispeechSpeechoidHaproxyBackendPxName": {
+			"description": "Speechoid HAProxy backend proxy name.",
+			"value": "backend_1"
+		},
+		"WikispeechSpeechoidHaproxyBackendSvName": {
+			"description": "Speechoid HAProxy backend service name.",
+			"value": "server_1"
+		},
+		"WikispeechSpeechoidHaproxyOverloadFactor": {
+			"description": [
+				"If factor multiplied with maximum number of concurrent connections ",
+				"is great than number of connections in queue,",
+				"then the queue is considered overloaded. ",
+				"This might result in something along the way of a warning to the user, ",
+				"not being able to synthesize new speech, or similar."
+			],
+			"value": 2.0
+		},
+		"WikispeechSpeechoidResponseTimeoutSeconds": {
+			"description": [
+				"Default number of seconds to await an HTTP response from Speechoid. ",
+				"Falsy value defaults to MediaWiki default."
+			],
+			"value": null
+		},
+		"WikispeechListenMaximumInputCharacters": {
+			"description": "Maximum number of characters in the input (a segment) sent to the Speechoid service.",
+			"value": 2048
+		},
+		"WikispeechRemoveTags": {
+			"description": [
+				"Map of HTML tags that should be removed completely, i.e. ",
+				"including any content. Keys are tag names and the values ",
+				"determine whether a tag should be removed, as follows:\n",
+				"* If <code>true</code>, remove all tags of that type.\n",
+				"* If an array, remove tags whose class matches any of the ",
+				"strings in the array.\n* If false, tags of that type will ",
+				"not be removed. This can be used in ''LocalSetting.php'' to ",
+				"override default criteria."
+			],
+			"value": {
+				"span": "mw-editsection",
+				"table": true,
+				"sup": "reference",
+				"div": [
+					"thumb",
+					"toc",
+					"shortdescription"
+				]
+			}
+		},
+		"WikispeechSegmentBreakingTags": {
+			"description": [
+				"HTML tags that will break text in segments. This ensure that, ",
+				"for example a header text without punctuation suffix will not ",
+				"be merged to the same segment as the text content of a ",
+				"preceding paragraph."
+			],
+			"value": [
+				"h1",
+				"h2",
+				"h3",
+				"h4",
+				"h5",
+				"h6",
+				"p",
+				"br",
+				"li"
+			]
+		},
+		"WikispeechNamespaces": {
+			"description": [
+				"List of the [https://www.mediawiki.org/wiki/Namespaces namespace] ",
+				"indices, for which Wikispeech is activated."
+			],
+			"value": [
+				0
+			]
+		},
+		"WikispeechKeyboardShortcuts": {
+			"description": [
+				"Shortcuts for Wikispeech commands. Each shortcut defines the ",
+				"key pressed (as key code<ref>https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes</ref>) ",
+				"and any modifier keys (ctrl, alt or shift)."
+			],
+			"value": {
+				"playPause": {
+					"key": 13,
+					"modifiers": [
+						"alt",
+						"shift"
+					]
+				},
+				"stop": {
+					"key": 8,
+					"modifiers": [
+						"alt",
+						"shift"
+					]
+				},
+				"skipAheadSentence": {
+					"key": 39,
+					"modifiers": [
+						"alt",
+						"shift"
+					]
+				},
+				"skipBackSentence": {
+					"key": 37,
+					"modifiers": [
+						"alt",
+						"shift"
+					]
+				},
+				"skipAheadWord": {
+					"key": 40,
+					"modifiers": [
+						"alt",
+						"shift"
+					]
+				},
+				"skipBackWord": {
+					"key": 38,
+					"modifiers": [
+						"alt",
+						"shift"
+					]
+				}
+			}
+		},
+		"WikispeechSkipBackRewindsThreshold": {
+			"description": [
+				"If an utterance has played longer than this (in seconds), ",
+				"skipping back will rewind to the start of the current ",
+				"utterance, instead of skipping to previous utterance."
+			],
+			"value": 3.0
+		},
+		"WikispeechHelpPage": {
+			"description": [
+				"Help page for Wikispeech. If defined, a button that takes the ",
+				"user here is added next to the player buttons."
+			],
+			"value": "Help:Wikispeech"
+		},
+		"WikispeechFeedbackPage": {
+			"description": [
+				"Feedback page for Wikispeech. If defined, a button that takes ",
+				"the user here is added next to the player buttons."
+			],
+			"value": "Wikispeech feedback"
+		},
+		"WikispeechContentSelector": {
+			"description": [
+				"The selector for the element that contains the text of the page. ",
+				"Used internally, but may change with MediaWiki version."
+			],
+			"value": "#mw-content-text"
+		},
+		"WikispeechVoices": {
+			"description": [
+				"Registered voices per language. ",
+				"System default voice falls back on the first registered voice for a language ",
+				"if not defined by Speechoid."
+			],
+			"value": {
+				"ar": [
+					"ar-nah-hsmm"
+				],
+				"en": [
+					"dfki-spike-hsmm",
+					"cmu-slt-hsmm"
+				],
+				"sv": [
+					"stts_sv_nst-hsmm"
+				]
+			}
+		},
+		"WikispeechMinimumMinutesBetweenFlushExpiredUtterancesJobs": {
+			"description": [
+				"Minimum number of minutes between queuing jobs that ",
+				"automatically flushes expired utterances from the utterance store. ",
+				"The job will be queued during creation of a new utterance, ",
+				"given that enough minutes has passed since the previous queuing of the job. ",
+				"Disable automatic flushing by setting value to a falsy value (0, false, null, etc). ",
+				"To avoid running the flush job too often, see the MW job documentation: ",
+				"https://www.mediawiki.org/wiki/Manual:Job_queue#Job_execution_on_page_requests"
+			],
+			"value": 30
+		},
+		"WikispeechUtteranceTimeToLiveDays": {
+			"description": [
+				"Minimum number of days for an utterance to live before being ",
+				"automatically flushed from the utterance store. ",
+				"More or less the cache flush setting for synthesized text. ",
+				"Setting this value too low will save disk space but cause frequently ",
+				"requested text segments to be re-synthesized more often with a CPU cost. ",
+				"Setting this value too high will block improvements to the voice synthesis. ",
+				"Setting this value to 0 will in effect turn off the cache ",
+				"and thus flush all utterances as soon as possible."
+			],
+			"value": 31
+		},
+		"WikispeechUtteranceFileBackendName": {
+			"description": [
+				"FileBackend group defined in LocalSettings.php used for utterance audio and metadata files. ",
+				"If not defined in LocalSettings.php, a FSBackend will be created that work against ",
+				"a temporary directory. See log warnings for exact path."
+			],
+			"value": ""
+		},
+		"WikispeechUtteranceFileBackendContainerName": {
+			"description": "Container name used in FileBackend for utterance audio and metadata files.",
+			"value": "wikispeech_utterances"
+		},
+		"WikispeechUtteranceUseSwiftFileBackendExpiring": {
+			"description": [
+				"In case of the file backend is Swift and this value is set true,",
+				"the Wikispeech will set the 'X-Delete-After' header when creating files in Swift ",
+				"and the utterance flushing mechanism will not invoke delete command in Swift. ",
+				"I.e. the actual flushing of utterances is moved to the Swift layer. ",
+				"In order for this to make sense, the Swift file backend must be set to accept ",
+				"these headers. For more information on how to do this see ",
+				"https://docs.openstack.org/swift/latest/overview_expiring_objects.html",
+				"This feature will be officially supported by Wikispeech as of ",
+				"the first LTS release of MediaWiki after 1.35 (i.e. probably 1.39)."
+			],
+			"value": false
+		},
+		"WikispeechPronunciationLexiconConfiguration": {
+			"description": [
+				"Controls how the pronunciation lexicon is persisted and accessed. ",
+				"'Speechoid' must be a part of the chain in order to make an impact to the speech synthesis. ",
+				"Possible values are: ",
+				"'Speechoid', access only the underlying lexicon in Speechoid. No revision history. ",
+				"'Wiki+Speechoid', access the lexicon stored as articles in NS_PRONUNCIATION_LEXICON for revision history and passed down to Speechoid. ",
+				"'Wiki', access only the lexicon stored as articles in NS_PRONUNCIATION_LEXICON. ",
+				"'Cache', transient storage in MediaWiki WAN cache. For development only. ",
+				"'Cache+Speechoid', transient storage in WAN cache, passed down to Speechoid. For development only."
+			],
+			"value": "Wiki+Speechoid"
+		},
+		"WikispeechProducerMode": {
+			"description": [
+				"Run Wikispeech in producer mode. This allows other ",
+				"wikis (consumers) to use this wiki to generate ",
+				"utterances. When an API requests includes the ",
+				"parameter `consumer-url`, page content is retrieved ",
+				"from the consumer wiki on that URL."
+			],
+			"value": false
+		},
+		"WikispeechListenDoJournalMetrics": {
+			"description": "Whether or not to log usage metrics for TTS API",
+			"value": true
+		},
+		"WikispeechListenMetricsJournalFile": {
+			"description": [
+				"Location of file in which to log usage metrics from TTS API.",
+				"Defaults to UploadDirectory/wikispeechListenMetrics.log"
+			],
+			"value": ""
+		},
+		"WikispeechEditLexiconAutoLogin": {
+			"description": [
+				"When true, redirect the user to login page if they visit ",
+				"the edit lexicon page and is not logged in."
+			],
+			"value": false
+		},
+		"WikispeechAllowConsumerEdits": {
+			"description": [
+				"When true, an edit button is added to the toolbar that ",
+				"leads to the edit lexicon page on the producer wiki."
+			],
+			"value": false
+		},
+		"WikispeechFlushUtterances": {
+			"description": [
+				"Mainly for development testing. When true, utterances are flushed when the page is loaded ",
+				"and removes all utterances for all voices, which helps when testing Speechoid utterance generation."
+			],
+			"value": false
+		},
+		"WikispeechUseBrowserTTS": {
+			"description": [
+				"Use browser's built-in text-to-speech service instead of Speechoid. ",
+				"When enabled, Wikispeech will use the Web Speech API for synthesis, ",
+				"eliminating the need for a backend TTS service."
+			],
+			"value": false
+		}
+	},
+	"DefaultUserOptions": {
+		"wikispeechEnable": true,
+		"wikispeechShowPlayer": false,
+		"wikispeechVoiceAr": "",
+		"wikispeechVoiceEn": "",
+		"wikispeechVoiceSv": "",
+		"wikispeechSpeechRate": 1.0
+	},
+	"APIModules": {
+		"wikispeech-segment": {
+			"class": "\\MediaWiki\\Wikispeech\\Api\\ApiWikispeechSegment",
+			"services": [
+				"MainWANObjectCache",
+				"HttpRequestFactory",
+				"RevisionStore",
+				"ConfigFactory"
+			]
+		},
+		"wikispeech-listen": {
+			"class": "\\MediaWiki\\Wikispeech\\Api\\ApiWikispeechListen",
+			"services": [
+				"MainWANObjectCache",
+				"RevisionStore",
+				"HttpRequestFactory",
+				"Wikispeech.UtteranceGenerator"
+			]
+		}
+	},
+	"AvailableRights": [
+		"wikispeech-listen",
+		"wikispeech-read-lexicon",
+		"wikispeech-edit-lexicon",
+		"wikispeech-edit-lexicon-raw"
+	],
+	"GroupPermissions": {
+		"*": {
+			"wikispeech-listen": true,
+			"wikispeech-read-lexicon": true
+		},
+		"wikispeech-edit-lexicon": {
+			"wikispeech-edit-lexicon": true
+		}
+	},
+	"namespaces": [
+		{
+			"id": 5772,
+			"constant": "NS_PRONUNCIATION_LEXICON",
+			"name": "Pronunciation_lexicon",
+			"protection": "wikispeech-edit-lexicon"
+		},
+		{
+			"id": 5773,
+			"constant": "NS_PRONUNCIATION_LEXICON_TALK",
+			"name": "Pronunciation_lexicon_talk"
+		}
+	]
+}

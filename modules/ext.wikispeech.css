@@ -1,0 +1,126 @@
+.wikispeech-title {
+	font-size: 1.1em;
+}
+
+/* Wikispeech player toolbar */
+.ext-wikispeech-control-panel {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	background-color: #fff;
+	border-top: 1px solid #ddd;
+	box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ext-wikispeech-control-panel .oo-ui-toolbar-actions {
+	float: unset;
+}
+
+/* Selection player */
+.ext-wikispeech-selection-player {
+	position: absolute;
+	z-index: 1001;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Buffering icon */
+.ext-wikispeech-buffering-icon-container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.ext-wikispeech-buffering-icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 16px;
+	height: 16px;
+	margin: -8px 0 0 -8px;
+	border: 2px solid #ccc;
+	border-top-color: #333;
+	border-radius: 50%;
+	animation: ext-wikispeech-spin 1s linear infinite;
+}
+
+@keyframes ext-wikispeech-spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+/* Highlighting styles */
+.ext-wikispeech-highlight-sentence {
+	background-color: rgb( 200, 170, 255 );
+}
+
+.ext-wikispeech-highlight-word {
+	background-color: rgb( 255, 200, 140 );
+}
+
+.ext-wikispeech-highlighted-utterance {
+	background-color: #ffffcc !important;
+	border-radius: 2px;
+}
+
+.ext-wikispeech-highlighted-token {
+	background-color: #ffff99 !important;
+	border-radius: 2px;
+	border: 1px solid #ffcc00;
+}
+
+/* Player control buttons */
+.ext-wikispeech-control-buttons {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px;
+}
+
+.ext-wikispeech-control-buttons .oo-ui-buttonElement {
+	margin: 0;
+}
+
+/* Settings dialog styles */
+.wikispeech-settings-container {
+	padding: 16px;
+	min-height: 120px;
+}
+
+.wikispeech-settings-label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 8px;
+	color: #333;
+}
+
+.wikispeech-language-select {
+	width: 100% !important;
+	padding: 8px !important;
+	margin-top: 8px !important;
+	font-size: 14px !important;
+	border: 1px solid #ccc !important;
+	border-radius: 4px !important;
+	background-color: #fff !important;
+}
+
+.wikispeech-language-select:focus {
+	border-color: #0645ad !important;
+	outline: none !important;
+	box-shadow: 0 0 0 1px #0645ad !important;
+}
+
+/* Settings button highlight */
+.ext-wikispeech-control-panel .oo-ui-buttonElement[data-icon="settings"] {
+	position: relative;
+}
+
+.ext-wikispeech-control-panel .oo-ui-buttonElement[data-icon="settings"]:hover {
+	background-color: #f8f9fa !important;
+}
